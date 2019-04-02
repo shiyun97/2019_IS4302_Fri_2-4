@@ -48,7 +48,7 @@
 					</div>
 				</form>
 				<div class="navbar-btn navbar-btn-right">
-					<a class="btn btn-success update-pro" href="../page-login.html" title="Logout" target="_blank"><i class="fa fa-rocket"></i> <span>Logout</span></a>
+					<a class="btn btn-success update-pro" href="../index.html" title="Logout"><i class="fa fa-rocket"></i> <span>Logout</span></a>
 				</div>
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
@@ -100,8 +100,9 @@
 						<li><a href="./farmer-homepage.html" class=""><i class="lnr lnr-home"></i> <span>Home</span></a></li>
 						<li><a href="./create-cattle.html" class=""><i class="lnr lnr-upload"></i> <span>Create Cattle</span></a></li>
 						<li><a href="./view-all-cattles.html" class=""><i class="lnr lnr-menu"></i> <span>View All Cattles</span></a></li>
-						<li><a href="./view-my-cattles.html" class="active"><i class="lnr lnr-menu"></i> <span>View My Cattles</span></a></li>
-						<li><a href="./search-certificate.html" class=""><i class="lnr lnr-file-empty"></i> <span>Search Certificate</span></a></li>
+						<li><a href="./view-my-cattles.html" class="active"><i class="lnr lnr-file-empty"></i> <span>View My Cattles</span></a></li>
+						<li><a href="./view-all-beefbatch.html" class=""><i class="lnr lnr-layers"></i> <span>View all Beef Batches</span></a></li>
+						<li><a href="./search-certificate.html" class=""><i class="lnr lnr-magnifier"></i> <span>Search Certificate</span></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -180,7 +181,7 @@
     		}).done(function(msg) {
         		console.log(msg);
 				alert("Cattle " + cattleId + " changed owner successfully!");
-				location.reload();
+				window.location.href = "./view-my-cattles.html";
     		}).fail(function() {
         		alert("Error performing update cattle owner");
     		})
@@ -205,7 +206,7 @@
     		}).done(function(msg) {
         		console.log(msg);
 				alert("Cattle " + cattleId + " updated successfully!");
-        		location.reload();
+        		window.location.href = "./view-my-cattles.html";
     		}).fail(function() {
         		alert("Error performing update cattle");
     		})
