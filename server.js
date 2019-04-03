@@ -3,7 +3,7 @@ var proxy = require('express-http-proxy');
 let App = Express();
 
 // direct to static files with html extensions
-App.use(Express.static('html/template/',{extensions:['html']}));
+App.use(Express.static('html/',{extensions:['html']}));
 
 // reverse proxy for 2 identities
 App.use('/farmer', proxy('localhost:3001/'));
