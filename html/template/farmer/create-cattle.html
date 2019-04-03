@@ -35,7 +35,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html"><img src="../assets/img/logo2.png" alt="Kobe Beef Logo" class="img-responsive logo"></a>
+				<a href="farmer-homepage.html"><img src="../assets/img/logo2.png" alt="Kobe Beef Logo" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -179,33 +179,38 @@ function createCattle() {
 	var father = document.getElementById("father").value;
 	var isDead = document.getElementById("isDead").value;
 	
-	$.ajax({
-        method: "POST",
-        url: "/hlf/api/org.example.basic.CreateCattle",
-        data: {
-			"$class": "org.example.basic.CreateCattle",
-			"newCattle": {
-				"$class": "org.example.basic.Cattle",
-				"cattleId": cattleId,
-				"birthDate": birthDate,
-				"gender": gender,
-				"breed": breed,
-				"lineage": {
-					"$class": "org.example.basic.Lineage",
-					"motherCattleId": mother,
-					"fatherCattleId": father
-				},
-				"isDead": isDead,
-				"farmerOwner": "resource:org.example.basic.Farmer#3376"
-			}
-        }
-    }).done(function(msg) {
-        console.log(msg);
-		alert("Cattle " + cattleId + " created successfully!");
-        window.location.href = "./view-my-cattles.html";
-    }).fail(function() {
-        alert("Error performing create cattle");
-    })
+	if (cattleId.length==0 || birthDate.length==0 || breed.length==0 || mother.length ==0 || father.length==0) {
+		alert("Please fill in all fields!");
+	} else {
+		$.ajax({
+        	method: "POST",
+        	url: "/farmer/api/org.example.basic.CreateCattle",
+        	data: {
+				"$class": "org.example.basic.CreateCattle",
+				"newCattle": {
+					"$class": "org.example.basic.Cattle",
+					"cattleId": cattleId,
+					"birthDate": birthDate,
+					"gender": gender,
+					"breed": breed,
+					"lineage": {
+						"$class": "org.example.basic.Lineage",
+						"motherCattleId": mother,
+						"fatherCattleId": father
+					},
+					"isDead": isDead,
+					"farmerOwner": "resource:org.example.basic.Farmer#"
+				}
+        	}
+    	}).done(function(msg) {
+        	console.log(msg);
+			alert("Cattle " + cattleId + " created successfully!");
+        	window.location.href = "./view-my-cattles.html";
+    	}).fail(function() {
+        	alert("Error performing create cattle");
+    	})
+	}
+
 }
 </script>
 </html>

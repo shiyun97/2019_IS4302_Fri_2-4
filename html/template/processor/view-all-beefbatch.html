@@ -36,7 +36,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html"><img src="../assets/img/logo2.png" alt="Kobe Beef Logo" class="img-responsive logo"></a>
+				<a href="processor-homepage.html"><img src="../assets/img/logo2.png" alt="Kobe Beef Logo" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -148,7 +148,7 @@
         
         $('#beefbatch-table').DataTable( {
             "ajax": {
-                url: "/hlf/api/org.example.basic.BeefBatch",
+                url: "/processor/api/org.example.basic.BeefBatch",
                 dataSrc: function(json) {
                 	var return_data = new Array();
                 	for (var i=0; i<json.length; i++) {
@@ -167,7 +167,7 @@
             },
             columns: [
                 { title:"Beef Batch ID", data: "beefBatchId" },
-                { title:"Quantity", data: "quantity" },
+                { title:"Quantity (kg)", data: "quantity" },
                 { title:"Quality", data: "quality" },
                 { title:"Wholesaler", data: "wholesalerString" },
                 { title:"Origin Cattle", data: "originCattleString" }

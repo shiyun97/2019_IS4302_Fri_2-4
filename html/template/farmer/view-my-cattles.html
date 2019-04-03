@@ -36,7 +36,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html"><img src="../assets/img/logo2.png" alt="Kobe Beef Logo" class="img-responsive logo"></a>
+				<a href="farmer-homepage.html"><img src="../assets/img/logo2.png" alt="Kobe Beef Logo" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -147,16 +147,15 @@
 <script type="text/javascript">
     $(document).ready(function() {
         var myself;
-		var myFarmerId;
         $.ajax({
-            url: "/hlf/api/system/ping"
+            url: "/farmer/api/system/ping"
         }).done(function(data) {
             myself = data.participant;
 		});      
 
         $('#cattle-table').DataTable( {
             "ajax": {
-                url: "/hlf/api/org.example.basic.Cattle",
+                url: "/farmer/api/org.example.basic.Cattle",
                 dataSrc: function(json) {
                 	var return_data = new Array();
                 	for (var i=0; i<json.length; i++) {
@@ -203,11 +202,11 @@
 				{ title:"Processor", data: "processorString" },
                 { title:"Action", render: function(data, type, row, meta){
                     let htmlOutput = "";
-                    if(row.farmerOwner == "resource:" + myself){ 
+                    //if(row.farmerOwner == "resource:" + myself){ 
                         
-                        htmlOutput += "<div align='center'><button class='btn btn-primary btn-xs' onclick='btnUpdateCattle(\""+row.cattleId+"\")'>Update</button>&nbsp;";
-						htmlOutput += "<button class='btn btn-danger btn-xs' onclick='btnDeleteCattle(\""+row.cattleId+"\")'>Delete</button></div>";
-                    }
+                    htmlOutput += "<div align='center'><button class='btn btn-primary btn-xs' onclick='btnUpdateCattle(\""+row.cattleId+"\")'>Update</button>&nbsp;";
+					htmlOutput += "<button class='btn btn-danger btn-xs' onclick='btnDeleteCattle(\""+row.cattleId+"\")'>Delete</button></div>";
+                    //}
                     return htmlOutput;
                   }
                 }
@@ -224,7 +223,7 @@
 	function btnDeleteCattle(cattleId) {
         $.ajax({
             method: "POST",
-            url: "/hlf/api/org.example.basic.DeleteCattle",
+            url: "/farmer/api/org.example.basic.DeleteCattle",
             data: {
 				"$class": "org.example.basic.DeleteCattle",
 				"cattle": "resource:org.example.basic.Cattle#"+cattleId

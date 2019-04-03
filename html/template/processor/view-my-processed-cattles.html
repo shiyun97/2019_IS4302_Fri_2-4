@@ -36,7 +36,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html"><img src="../assets/img/logo2.png" alt="Kobe Beef Logo" class="img-responsive logo"></a>
+				<a href="processor-homepage.html"><img src="../assets/img/logo2.png" alt="Kobe Beef Logo" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -147,14 +147,14 @@
     $(document).ready(function() {
         var myself;
         $.ajax({
-            url: "/hlf/api/system/ping"
+            url: "/processor/api/system/ping"
         }).done(function(data) {
             myself = data.participant;
 		});      
 
         $('#cattle-table').DataTable( {
             "ajax": {
-                url: "/hlf/api/org.example.basic.Cattle",
+                url: "/processor/api/org.example.basic.Cattle",
                 dataSrc: function(json) {
                 	var return_data = new Array();
                 	for (var i=0; i<json.length; i++) {
@@ -201,10 +201,10 @@
 				{ title:"Processor", data: "processorString" },
                 { title:"Action", render: function(data, type, row, meta){
                     let htmlOutput = "";
-                    if(row.processor == "resource:" + myself){ 
+                    //if(row.processor == "resource:" + myself){ 
     
-                        htmlOutput += "<div align='center'><button class='btn btn-primary btn-xs' onclick='updateCattleStatus(\""+row.cattleId+"\")'>Update</button></div>";
-                    }
+                    htmlOutput += "<div align='center'><button class='btn btn-primary btn-xs' onclick='updateCattleStatus(\""+row.cattleId+"\")'>Update</button></div>";
+                    //}
                     return htmlOutput;
                   }
                 }

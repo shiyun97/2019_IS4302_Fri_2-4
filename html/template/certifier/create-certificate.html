@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>Kobe Beef - Farmer - Update Cattle</title>
+	<title>Kobe Beef - Certifier - Create Certificate</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -35,7 +35,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="farmer-homepage.html"><img src="../assets/img/logo2.png" alt="Kobe Beef Logo" class="img-responsive logo"></a>
+				<a href="certifier-homepage.html"><img src="../assets/img/logo2.png" alt="Kobe Beef Logo" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -76,7 +76,7 @@
 							</ul>
 						</li>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="../assets/img/farmer.png" class="img-circle" alt="Avatar"> <span>Farmer 1</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="../assets/img/certifier.png" class="img-circle" alt="Avatar"> <span>Certifier 1</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
 							<ul class="dropdown-menu">
 								<li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
 								<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
@@ -97,10 +97,10 @@
 			<div class="sidebar-scroll">
 				<nav>
 					<ul class="nav">
-						<li><a href="./farmer-homepage.html" class=""><i class="lnr lnr-home"></i> <span>Home</span></a></li>
-						<li><a href="./create-cattle.html" class=""><i class="lnr lnr-upload"></i> <span>Create Cattle</span></a></li>
+						<li><a href="./certifier-homepage.html" class=""><i class="lnr lnr-home"></i> <span>Home</span></a></li>
+						<li><a href="./create-certificate.html" class="active"><i class="lnr lnr-upload"></i> <span>Create Certificate</span></a></li>
+						<li><a href="./view-issued-certificates.html" class=""><i class="lnr lnr-upload"></i> <span>View Issued Certificates</span></a></li>
 						<li><a href="./view-all-cattles.html" class=""><i class="lnr lnr-menu"></i> <span>View All Cattles</span></a></li>
-						<li><a href="./view-my-cattles.html" class="active"><i class="lnr lnr-file-empty"></i> <span>View My Cattles</span></a></li>
 						<li><a href="./view-all-beefbatch.html" class=""><i class="lnr lnr-layers"></i> <span>View all Beef Batches</span></a></li>
 						<li><a href="./search-certificate.html" class=""><i class="lnr lnr-magnifier"></i> <span>Search Certificate</span></a></li>
 					</ul>
@@ -112,27 +112,37 @@
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-					<h3 class="page-title">Update Cattle</h3>
+					<h3 class="page-title">Create New Certificate</h3>
 					<div class="panel panel-headline">
 						<div class="panel-body">
 							<h3>Enter the following fields:</h3>
 							<hr>
-							<form id="updateCattleForm">
-								<h4>New Farmer ID (if applicable):</h4>
-								<input class="form-control" id="newFarmerId" name="newFarmerId" placeholder="New Farmer ID" type="text" />
-								<br/><br/>
-								<input type="button" onclick='updateCattleOwner()' button class="btn btn-info" value="Change Owner"/>
-								<br/><br/>
-								<h4>Select IsDead?</h4>
-								<select class="form-control" id="isDead" name="isDead" required>
-									<option value="false">FALSE</option>
-									<option value="true">TRUE</option>
-								</select>
+							<form id="createCertificateForm">
+								<h4>Enter Cattle ID:</h4>
+								<input class="form-control" id="cattleId" name="cattleId" placeholder="Cattle ID" type="text" required />
 								<br/>
-								<h4>Processor ID (if applicable):</h4>
-								<input class="form-control" id="processorId" name="processorId" placeholder="Processor ID" type="text" />
+								<h4>Select Overall Grade (Yield Score and Meat Quality Score):</h4>
+								<select class="form-control" id="grade" name="grade" required>
+									<option value="A3">A3</option>
+									<option value="B3">B3</option>
+									<option value="A4">A4</option>
+									<option value="B4">B4</option>
+									<option value="A5">A5</option>
+									<option value="B5">B5</option>
+								</select>
 								<br/><br/>
-								<input type="button" onclick='updateDetails()' button class="btn btn-info" value="Submit"/>
+								<input type="button" onclick='setGrade()' button class="btn btn-info" value="Set Cattle Grade"/>
+								<br/><br/>
+								<h4>Enter Certificate ID:</h4>
+								<input class="form-control" id="certificateId" name="certificateId" placeholder="Certificate ID" type="text" required />
+								<br/>
+								<h4>Enter Issue Date:</h4>
+								<input class="form-control" id="issueDate" name="issueDate" placeholder="Issue Date" type="date" required />
+								<br/>
+								<h4>Enter Description:</h4>
+								<textarea class="form-control" id="description" name="description" placeholder="Description" rows="4"></textarea>
+								<br/><br/>
+								<input type="button" onclick='createCertificate()' button class="btn btn-info" value="Create Certificate"/>
 							</form>
 						</div>
 					</div>
@@ -149,86 +159,63 @@
 	</div>
 	<!-- END WRAPPER -->
 	<!-- Javascript -->
-	<!--
 	<script src="../assets/vendor/jquery/jquery.min.js"></script>
 	<script src="../assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="../assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
 	<script src="../assets/vendor/chartist/js/chartist.min.js"></script>
 	<script src="../assets/scripts/klorofil-common.js"></script>
-	-->
 </body>
 <script type="text/javascript">
+function setGrade() {
+	var cattleId = document.getElementById("cattleId").value;
+	var grade = document.getElementById("grade").value;
+	$.ajax({
+    	method: "POST",
+    	url: "/certifier/api/org.example.basic.CertifierUpdateCattleGrade",
+    	data: {
+    		"$class": "org.example.basic.CertifierUpdateCattleGrade",
+  			"grade": grade,
+  			"cattle": "resource:org.example.basic.Cattle#"+cattleId
+    	}
+    }).done(function(msg) {
+		alert("Cattle " + cattleId + " grade updated successfully!");
+    }).fail(function() {
+        alert("Error performing update grade");
+    })
+}
 
-	function updateCattleOwner() {
-		var cattleId = sessionStorage.getItem("cattleIdToUpdate");
-		var isDead = document.getElementById("isDead").value;
-		var newFarmerId = document.getElementById("newFarmerId").value;
-		var processorId = document.getElementById("processorId").value;
-		console.log("New farmer ID: " + newFarmerId);
-		if (newFarmerId.length != 0) {
-			console.log("calling change owner...");
-			//newFarmerId = "resource:org.example.basic.Farmer#" + newFarmerId;
-			// call change owner function
-			$.ajax({
-        		method: "POST",
-        		url: "/farmer/api/org.example.basic.ChangeFarmerOwner",
-        		data: {
-					"$class": "org.example.basic.ChangeFarmerOwner",
-  					"cattle": "resource:org.example.basic.Cattle#"+cattleId,
-  					"newOwner": "resource:org.example.basic.Farmer#"+newFarmerId	
-        		}
-    		}).done(function(msg) {
-        		console.log(msg);
-				alert("Cattle " + cattleId + " changed owner successfully!");
-				window.location.href = "./view-my-cattles.html";
-    		}).fail(function() {
-        		alert("Error performing update cattle owner");
-    		})
-		} 
+function createCertificate() {
+	var cattleId = document.getElementById("cattleId").value;
+	var certificateId = document.getElementById("certificateId").value;
+	var issueDate = document.getElementById("issueDate").value;
+	var description = document.getElementById("description").value;
+	if (cattleId.length==0 || certificateId.length==0 || issueDate.length==0 || description.length==0) {
+		alert("Please fill in all fields");
+	} else {
+		$.ajax({
+        	method: "POST",
+        	url: "/certifier/api/org.example.basic.CreateCertificate",
+        	data: {
+				"$class": "org.example.basic.CreateCertificate",
+  				"newCertificate": {
+   					"$class": "org.example.basic.Certificate",
+    				"certificateId": certificateId,
+    				"issueDate": issueDate,
+    				"description": description,
+    				"referencedCertifier": "resource:org.example.basic.Certifier#",
+    				"gradedCattle": "resource:org.example.basic.Cattle#"+cattleId
+  				}
+        	}
+    	}).done(function(msg) {
+    		console.log(msg);
+    		alert("Certificate " + certificateId + " created successfully!");
+    		window.location.href = "./view-issued-certificates.html";
+    	}).fail(function() {
+        	alert("Error performing create certificate");
+    	})
 	}
-
-	function updateDetails() {
-		var cattleId = sessionStorage.getItem("cattleIdToUpdate");
-		var isDead = document.getElementById("isDead").value;
-		var newFarmerId = document.getElementById("newFarmerId").value;
-		var processorId = document.getElementById("processorId").value;
-		if (processorId.length != 0) {
-			$.ajax({
-        		method: "POST",
-        		url: "/farmer/api/org.example.basic.OwnerUpdateCattleDetails",
-        		data: {
-					"$class": "org.example.basic.OwnerUpdateCattleDetails",
-  					"isDead": isDead,
-  					"cattle": "resource:org.example.basic.Cattle#"+cattleId,
-  					"processor": "resource:org.example.basic.Processor#"+processorId
-        		}
-    		}).done(function(msg) {
-        		console.log(msg);
-				alert("Cattle " + cattleId + " updated successfully!");
-        		window.location.href = "./view-my-cattles.html";
-    		}).fail(function() {
-        		alert("Error performing update cattle");
-    		})
-		} else {
-			$.ajax({
-        		method: "POST",
-        		url: "/farmer/api/org.example.basic.OwnerUpdateCattleDetails",
-        		data: {
-					"$class": "org.example.basic.OwnerUpdateCattleDetails",
-  					"isDead": isDead,
-  					"cattle": "resource:org.example.basic.Cattle#"+cattleId
-        		}
-    		}).done(function(msg) {
-        		console.log(msg);
-				alert("Cattle " + cattleId + " updated successfully!");
-        		window.location.href = "./view-my-cattles.html";
-    		}).fail(function() {
-        		alert("Error performing update cattle");
-    		})
-		}
-	
-	}
+}
 </script>
 </html>
 

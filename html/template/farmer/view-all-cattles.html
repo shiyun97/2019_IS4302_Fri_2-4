@@ -36,7 +36,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html"><img src="../assets/img/logo2.png" alt="Kobe Beef Logo" class="img-responsive logo"></a>
+				<a href="farmer-homepage.html"><img src="../assets/img/logo2.png" alt="Kobe Beef Logo" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -146,17 +146,18 @@
 </body>
 <script type="text/javascript">
     $(document).ready(function() {
+        /*
         var myself;
 		var myFarmerId;
         $.ajax({
-            url: "/hlf/api/system/ping"
+            url: "/farmer/api/system/ping"
         }).done(function(data) {
             myself = data.participant;
-		});      
+		}); */      
 
         $('#cattle-table').DataTable( {
             "ajax": {
-                url: "/hlf/api/org.example.basic.Cattle",
+                url: "/farmer/api/org.example.basic.Cattle",
                 dataSrc: function(json) {
                 	var return_data = new Array();
                 	for (var i=0; i<json.length; i++) {

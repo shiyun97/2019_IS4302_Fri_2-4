@@ -36,7 +36,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html"><img src="../assets/img/logo2.png" alt="Kobe Beef Logo" class="img-responsive logo"></a>
+				<a href="processor-homepage.html"><img src="../assets/img/logo2.png" alt="Kobe Beef Logo" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -150,7 +150,7 @@
 
         $('#certificate-table').DataTable( {
             "ajax": {
-                url: "/hlf/api/org.example.basic.Certificate",
+                url: "/processor/api/org.example.basic.Certificate",
                 dataSrc: function(json) {
                 	var return_data = new Array();
                 	for (var i=0; i<json.length; i++) {
