@@ -2,10 +2,10 @@ var Express = require('express');
 var proxy = require('express-http-proxy');
 let App = Express();
 
-//static files
-App.use(Express.static('html/template/'));
+// direct to static files with html extensions
+App.use(Express.static('html/template/',{extensions:['html']}));
 
-//reverse proxy
+// reverse proxy for 2 identities
 App.use('/farmer', proxy('localhost:3001/'));
 App.use('/processor', proxy('localhost:3002/'));
 App.use('/certifier', proxy('localhost:3003/'));
