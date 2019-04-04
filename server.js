@@ -9,6 +9,7 @@ App.use(Express.static('html/',{extensions:['html']}));
 App.use('/farmer', proxy('localhost:3001/'));
 App.use('/processor', proxy('localhost:3002/'));
 App.use('/certifier', proxy('localhost:3003/'));
+App.use('/wholesaler', proxy('localhost:3004/'));
 
 
 let port = process.env.PORT || 3000;

@@ -1,0 +1,263 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+rule Farmer {
+  description: "Any farmer can read"
+  participant: "org.example.basic.Farmer"
+  operation: READ
+  resource: "org.example.basic.*"
+  condition: (true)
+  action: ALLOW
+}
+
+rule Processor {
+  description: "Any processor can read"
+  participant: "org.example.basic.Processor"
+  operation: READ
+  resource: "org.example.basic.*"
+  condition: (true)
+  action: ALLOW
+}
+
+rule Wholesaler {
+  description: "Any wholesaler can read"
+  participant: "org.example.basic.Wholesaler"
+  operation: READ
+  resource: "org.example.basic.*"
+  condition: (true)
+  action: ALLOW
+}
+
+rule Certifier {
+  description: "Any certifier can read"
+  participant: "org.example.basic.Certifier"
+  operation: READ
+  resource: "org.example.basic.*"
+  condition: (true)
+  action: ALLOW
+}
+
+rule FarmerCanCreateCattle {
+  description: "Farmer can create new cattle through CreateCattle transaction"
+  participant: "org.example.basic.Farmer"
+  operation: CREATE
+  resource: "org.example.basic.Cattle"
+  transaction: "org.example.basic.CreateCattle"
+  condition: (true)
+  action: ALLOW
+}
+
+rule CattleFarmerOwnerUpdateCattle {
+  description: "Farmer owner of cattle can update cattle through OwnerUpdateCattleDetails transaction"
+  participant(f): "org.example.basic.Farmer"
+  operation: UPDATE
+  resource(c): "org.example.basic.Cattle"
+  transaction: "org.example.basic.OwnerUpdateCattleDetails"
+  condition: (c.farmerOwner.getIdentifier() == f.getIdentifier())
+  action: ALLOW
+}
+
+rule CattleFarmerOwnerUpdateCattleOwner {
+  description: "Farmer owner of cattle can update cattle through OwnerUpdateCattleDetails transaction"
+  participant(f): "org.example.basic.Farmer"
+  operation: UPDATE
+  resource(c): "org.example.basic.Cattle"
+  transaction: "org.example.basic.ChangeFarmerOwner"
+  condition: (c.farmerOwner.getIdentifier() == f.getIdentifier())
+  action: ALLOW
+}
+
+rule CattleFarmerOwnerDeleteCattle {
+  description: "Farmer owner of cattle can delete cattle through DeleteCattle transaction"
+  participant(f): "org.example.basic.Farmer"
+  operation: DELETE
+  resource(c): "org.example.basic.Cattle"
+  transaction: "org.example.basic.DeleteCattle"
+  condition: (c.farmerOwner.getIdentifier() == f.getIdentifier())
+  action: ALLOW
+}
+
+rule ProcessorOwnerUpdateCattle {
+  description: "Processor owner of cattle can update cattle through ProcessorUpdateCattleAliveStatus transaction"
+  participant(p): "org.example.basic.Processor"
+  operation: UPDATE
+  resource(c): "org.example.basic.Cattle"
+  transaction: "org.example.basic.ProcessorUpdateCattleAliveStatus"
+  condition: (c.processor.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+}
+
+rule CertifierCanUpdateCattleGrade {
+  description: "Certifier can update cattle grade through CertifierUpdateCattleGrade transaction"
+  participant(p): "org.example.basic.Certifier"
+  operation: UPDATE
+  resource(c): "org.example.basic.Cattle"
+  transaction: "org.example.basic.CertifierUpdateCattleGrade"
+  condition: (true)
+  action: ALLOW
+}
+
+rule CertifierCanCreateCertificate {
+  description: "Certifier can create new certificate through CreateCertificate transaction"
+  participant(f): "org.example.basic.Certifier"
+  operation: CREATE
+  resource(c): "org.example.basic.Certificate"
+  transaction: "org.example.basic.CreateCertificate"
+  condition: (true)
+  action: ALLOW
+}
+
+rule WholesalerCanCreateBeefBatch {
+  description: "Wholesaler can create new beef batch through CreateBeefBatch transaction"
+  participant(w): "org.example.basic.Wholesaler"
+  operation: CREATE
+  resource(b): "org.example.basic.BeefBatch"
+  transaction: "org.example.basic.CreateBeefBatch"
+  condition: (true)
+  action: ALLOW
+}
+
+rule WholesalerOwnerCanUpdateBeefBatch {
+  description: "Wholesaler owner of beefBatch can update BeefBatch through UpdateBeefBatch transaction"
+  participant(w): "org.example.basic.Wholesaler"
+  operation: UPDATE
+  resource(b): "org.example.basic.BeefBatch"
+  transaction: "org.example.basic.UpdateBeefBatch"
+  condition: (b.wholesaler.getIdentifier() == w.getIdentifier())
+  action: ALLOW
+}
+
+rule WholesalerOwnerCanDeleteBeefBatch {
+  description: "Wholesaler owner of beefBatch can delete BeefBatch through DeleteBeefBatch transaction"
+  participant(w): "org.example.basic.Wholesaler"
+  operation: DELETE
+  resource(b): "org.example.basic.BeefBatch"
+  transaction: "org.example.basic.DeleteBeefBatch"
+  condition: (b.wholesaler.getIdentifier() == w.getIdentifier())
+  action: ALLOW
+}
+
+rule AnyFarmerCanIssueCreateCattle {
+  description: "Any farmer can issue CreateCattle transaction"
+  participant: "org.example.basic.Farmer"
+  operation: CREATE
+  resource: "org.example.basic.CreateCattle"
+  condition: (true)
+  action: ALLOW
+}
+
+rule AnyFarmerCanIssueDeleteCattle {
+  description: "Any farmer can issue DeleteCattle transaction"
+  participant: "org.example.basic.Farmer"
+  operation: CREATE
+  resource: "org.example.basic.DeleteCattle"
+  condition: (true)
+  action: ALLOW
+}
+
+rule AnyFarmerCanIssueUpdateCattleDetails {
+  description: "Any farmer can issue OwnerUpdateCattleDetails transaction"
+  participant: "org.example.basic.Farmer"
+  operation: CREATE
+  resource: "org.example.basic.OwnerUpdateCattleDetails"
+  condition: (true)
+  action: ALLOW
+}
+
+rule AnyFarmerCanIssueUpdateCattleOwner {
+  description: "Any farmer can issue OwnerUpdateCattleDetails transaction"
+  participant: "org.example.basic.Farmer"
+  operation: CREATE
+  resource: "org.example.basic.ChangeFarmerOwner"
+  condition: (true)
+  action: ALLOW
+}
+
+rule AnyProcessorCanIssueUpdateCattleAliveStatus {
+  description: "Any Processor can issue ProcessorUpdateCattleAliveStatus transaction"
+  participant: "org.example.basic.Processor"
+  operation: CREATE
+  resource: "org.example.basic.ProcessorUpdateCattleAliveStatus"
+  condition: (true)
+  action: ALLOW
+}
+
+rule AnyCertifierCanIssueUpdateCattleGrade {
+  description: "Any certifier can issue CertifierUpdateCattleGrade transaction"
+  participant: "org.example.basic.Certifier"
+  operation: CREATE
+  resource: "org.example.basic.CertifierUpdateCattleGrade"
+  condition: (true)
+  action: ALLOW
+}
+
+rule AnyCertifierCanIssueCreateCertificate {
+  description: "Certifier can issue CreateCertificate transaction"
+  participant: "org.example.basic.Certifier"
+  operation: CREATE
+  resource: "org.example.basic.CreateCertificate"
+  condition: (true)
+  action: ALLOW
+}
+
+rule AnyWholesalerCanIssueCreateBeefBatch {
+  description: "Wholesaler can issue CreateBeefBatch transaction"
+  participant: "org.example.basic.Wholesaler"
+  operation: CREATE
+  resource: "org.example.basic.CreateBeefBatch"
+  condition: (true)
+  action: ALLOW
+}
+
+rule AnyWholesalerCanIssueUpdateBeefBatch {
+  description: "Wholesaler can issue UpdateBeefBatch transaction"
+  participant(f): "org.example.basic.Wholesaler"
+  operation: CREATE
+  resource(c): "org.example.basic.UpdateBeefBatch"
+  condition: (true)
+  action: ALLOW
+}
+
+rule AnyWholesalerCanIssueDeleteBeefBatch {
+  description: "Wholesaler can issue DeleteBeefBatch"
+  participant(f): "org.example.basic.Wholesaler"
+  operation: CREATE
+  resource(c): "org.example.basic.DeleteBeefBatch"
+  condition: (true)
+  action: ALLOW
+}
+
+rule SystemACL {
+    description: "System ACL to permit all access"
+    participant: "org.hyperledger.composer.system.Participant"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}

@@ -1,0 +1,144 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+namespace org.example.basic
+
+asset Cattle identified by cattleId {
+  o String cattleId
+  o DateTime birthDate
+  o Gender gender
+  o String breed
+  o Lineage lineage
+  o Boolean isDead default=false
+  o String grade optional
+  --> Processor processor optional
+  --> Farmer farmerOwner
+}
+
+asset Certificate identified by certificateId {
+  o String certificateId
+  o DateTime issueDate
+  o String description
+  --> Certifier referencedCertifier
+  --> Cattle gradedCattle
+}
+ 
+asset BeefBatch identified by beefBatchId {
+  o String beefBatchId
+  o Integer quantity
+  o String quality
+  --> Wholesaler wholesaler
+  --> Cattle originCattle
+}
+ 
+concept Lineage {
+  o String motherCattleId
+  o String fatherCattleId  
+}
+ 
+concept Address {
+  o String country
+  o String city
+  o String prefecture
+  o String district
+  o String postalCode
+  o String contactNumber
+}
+
+enum Gender {
+  o Male
+  o Female
+}
+
+participant Farmer identified by farmerId {
+  o String farmerId
+  o String farmerName
+  o String description
+  o String originCountry
+  o Address address
+}
+ 
+participant Certifier identified by certifierId {
+  o String certifierId
+  o String certifierName
+  o String emailContact
+  o String organisation
+  o String description
+  o String originCountry
+  o Address address
+}
+ 
+participant Processor identified by processorId {
+  o String processorId
+  o String processorName
+  o String description
+  o String originCountry
+  o Address address
+}
+ 
+participant Wholesaler identified by wholesalerId {
+  o String wholesalerId
+  o String wholesalerName
+  o String description
+  o String originCountry
+  o Address address
+}
+
+transaction CreateCattle {
+  o Cattle newCattle
+}
+
+transaction ChangeFarmerOwner {
+  --> Cattle cattle
+  --> Farmer newOwner
+}
+  
+transaction OwnerUpdateCattleDetails {
+  o Boolean isDead
+  --> Cattle cattle
+  --> Processor processor optional
+}
+
+transaction ProcessorUpdateCattleAliveStatus {
+  o Boolean isDead
+  --> Cattle cattle
+}
+
+transaction CertifierUpdateCattleGrade {
+  o String grade
+  --> Cattle cattle
+}
+
+transaction DeleteCattle {
+  --> Cattle cattle
+}
+
+transaction CreateCertificate {
+  o Certificate newCertificate
+}
+
+transaction CreateBeefBatch {
+  o BeefBatch newBeefBatch
+} 
+  
+transaction UpdateBeefBatch {
+  o Integer quantity
+  o String quality
+  --> BeefBatch beefBatch
+  --> Wholesaler wholesaler optional
+} 
+  
+transaction DeleteBeefBatch {
+  --> BeefBatch beefBatch
+}
