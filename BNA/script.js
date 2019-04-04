@@ -132,7 +132,7 @@ async function createBeefBatch(createBeefBatch) {
  */
 async function updateBeefBatch(updateBeefBatch) {
   var wholesaler = updateBeefBatch.wholesaler;
-  if (wholesaler.length != 0) {
+  if (wholesaler != null) {
     // check that wholesaler id exists
   	const wholesalerRegistry = await getParticipantRegistry('org.example.basic.Wholesaler');
   	var temp = await wholesalerRegistry.get(wholesaler.wholesalerId);
