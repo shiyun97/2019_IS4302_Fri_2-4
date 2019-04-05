@@ -5,7 +5,7 @@ let App = Express();
 // direct to static files with html extensions
 App.use(Express.static('html/',{extensions:['html']}));
 
-// reverse proxy for 2 identities
+// reverse proxy for 4 identities
 App.use('/farmer', proxy('localhost:3001/'));
 App.use('/processor', proxy('localhost:3002/'));
 App.use('/certifier', proxy('localhost:3003/'));

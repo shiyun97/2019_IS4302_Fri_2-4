@@ -158,27 +158,33 @@ function createBeefBatch() {
 	var quality = document.getElementById("quality").value;
 	var originCattle = document.getElementById("originCattle").value;
 
-	$.ajax({
-        method: "POST",
-        url: "/wholesaler/api/org.example.basic.CreateBeefBatch",
-        data: {
-			"$class": "org.example.basic.CreateBeefBatch",
-			"newBeefBatch": {
-				"$class": "org.example.basic.BeefBatch",
-				"beefBatchId": beefBatchId,
-				"quantity": quantity,
-				"quality": quality,
-				"wholesaler": "resource:org.example.basic.Wholesaler#",
-				"originCattle": originCattle
-			}
-        }
-    }).done(function(msg) {
-        console.log(msg);
-		alert("BeefBatch " + beefBatchId + " created successfully!");
-        window.location.href = "./view-my-beefbatch";
-    }).fail(function() {
-        alert("Error performing create beefBatch");
-    })
+	if (beefBatchId.length==0 || quantity.length==0 || quality.length==0 || originCattle.length ==0) {
+		alert("Please fill in all fields!");
+	} 
+	else {
+		$.ajax({
+        	method: "POST",
+        	url: "/wholesaler/api/org.example.basic.CreateBeefBatch",
+        	data: {
+				"$class": "org.example.basic.CreateBeefBatch",
+				"newBeefBatch": {
+					"$class": "org.example.basic.BeefBatch",
+					"beefBatchId": beefBatchId,
+					"quantity": quantity,
+					"quality": quality,
+					"wholesaler": "resource:org.example.basic.Wholesaler#",
+					"originCattle": originCattle
+				}
+        	}
+    	}).done(function(msg) {
+        	console.log(msg);
+			alert("BeefBatch " + beefBatchId + " created successfully!");
+        	window.location.href = "./view-my-beefbatch";
+    	}).fail(function() {
+        	alert("Error performing create beefBatch");
+    	})
+	}
+	
 }
 </script>
 </html>
